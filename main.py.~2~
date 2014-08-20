@@ -1,0 +1,115 @@
+#!/usr/bin/env python
+# coding=utf-8
+# coding=utf-8
+#
+# Copyright 2007 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+import webapp2
+
+import os
+from google.appengine.ext.webapp import template
+
+from google.appengine.api import users
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.ext import db
+
+from datetime import datetime
+
+
+class Kakikomi(db.Model):
+    name = db.StringProperty(required=True)
+    title = db.StringProperty(required=True)
+    mail = db.StringProperty(required=True)
+    age = db.StringProperty(required=True)
+    place = db.StringProperty(required=True)
+    message = db.StringProperty(required=True, multiline=True)
+    delkey = db.StringProperty(required=True)
+    color = db.StringProperty()
+    date = db.DateTimeProperty(auto_now_add=True)
+
+
+class WriteHandler(webapp2.RequestHandler):
+    def post(self):
+        kakikomi = Kakikomi(name=self.request.get('name'),
+                            mail=self.request.get('mail'),
+                            title=self.request.get('title'),
+                            age=self.request.get('age'),
+                            place=self.request.get('place'),
+                            message=self.request.get('message'),
+                            delkey=self.request.get('delkey'),
+                            )
+        kakikomi.put()
+        self.redirect('/')
+
+
+class EditHandler(webapp2.RequestHandler):
+    def get(self):
+        """
+        編集フォームの生成
+        """
+        res = db.get(self.request.get('key'))
+        template_values = {'key': self.request.get('key'), 'r': res}
+
+        path = os.path.join(os.path.dirname(__file__), 'edit.html')
+        self.response.out.write(template.render(path, template_values))
+    def post(self):
+        """
+        編集および削除をする
+        """
+        entitty = db.GqlQuery("SELECT * from Kakikomi WHERE delkey = 'hoge'")
+        entity.delete()
+        self.redirect('/')
+
+
+class MainHandler(webapp2.RequestHandler):
+    def get(self):
+        kakikomis = db.GqlQuery("SELECT * FROM Kakikomi ORDER BY date DESC LIMIT 100")
+
+        template_values = dict(kakikomi='<font color="red">kakikomi</font>', kakikomis=kakikomis)
+
+        path = os.path.join(os.path.dirname(__file__), 'index.html')
+        self.response.out.write(template.render(path, template_values))
+
+
+class DeleteHandler(webapp2.RequestHandler):
+    def get(self):
+        res = db.get(self.request.get('key'))
+        if self.request.get('delkey') == res.delkey:
+            res.delete()
+        self.redirect('/')
+
+    def post(self):
+        self.redirect('/')
+
+
+
+class About(webapp2.RequestHandler):
+    def get(self):
+        template_values = dict(test='<font color="red">kakikomi</font>')
+
+        path = os.path.join(os.path.dirname(__file__), 'about.html')
+        self.response.out.write(template.render(path, template_values))
+
+
+app = webapp2.WSGIApplication([
+                                  ('/', MainHandler),
+                                  ('/edit', EditHandler),
+                                  ('/del', DeleteHandler),
+                                  ('/write', WriteHandler),
+                                  ('/about', About),
+                              ], debug=True)
+
+

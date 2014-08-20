@@ -1,0 +1,5 @@
+blacklist:
+- subnet: 94.242.237.0/24
+  description: an IPv4 subnet
+
+  

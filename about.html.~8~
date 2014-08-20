@@ -1,0 +1,58 @@
+<html>
+
+<head>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-39735951-1', 'gazobbs.appspot.com');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+  <body  bgcolor="#000000" text="#FFFF00" link="#FFFF00" vlink="#FFFF00" alink="#FFFF00">
+
+<div style="text-align:center;width:100%;">
+  <div style="text-align:left;margin:0px auto;width:720px;">
+
+<h1>画像付き対戦掲示板 (仮) 開発記録</h1>
+<ul>
+  <li>20130430 投稿時間が正しく表示されない不具合を修正しました
+  <li>20130426 たくさんの応援メッセージと若干のお誘いメッセージをいただきました、
+    管理人のうっかりミスで転送設定ができていませんでした、
+    今日になって気づきました。。
+    タイミングを逃がして返事できなかった方々本当にすみません、、
+  <li>20130423 ページめくりができるようになりました
+  <li>20130411 画像のサムネ表示ができるようになりました
+  <li>20130411 スマホで見た時に、文字が小さくなりすぎる不具合を修正しました
+  <li>20130409 画像を投稿できるようになりました
+  <li>20130409 削除および編集ができるようになりました
+  <li>20130404 書き込んだ直後に画面が再読み込みされない不具合の解決
+  <li>20130331 せっかく対戦相手を募集しようと思ったのに、掲示板が見れない!
+あれだけ使われてた掲示板がなくなのは実に勿体無い!
+なんで、2、3時間で勢いだけで作って見た、もろもろは今後改良していこく事にする
+<li>当面の課題:
+<ul>
+<li><s>投稿時間がずれている不具合の修正</s>
+<li><s>iphoneで見たときに本文の文字が小さく見える不具合の解決</s>
+<li>入力した改行を反映
+<li><s>編集・削除の機能</s>
+<li><s>ページめくりの機能</s>
+<li>1000を越える投稿が表示されない不具合の修正
+<li><s>画像を投稿する機能</s>
+<li><s>画像のサムネ表示</s>
+<li>地域や年齢帯で検索できる機能
+<li>キーワードで検索できる機能
+</ul>
+    </ul>
+    
+</div>
+  </div>
+
+
+  
+</body>
+  </html>
